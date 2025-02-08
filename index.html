@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Play Scroll Video Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #222;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            overflow-y: scroll;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 600px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            opacity: 1;  /* ✅ پہلے سے اوپیسٹی 1 کر دی */
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            background-color: black;
+        }
+
+        /* 🔹 Overlay Style */
+        .overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 400px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 350px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay input {
+            padding: 10px;
+            font-size: 18px;
+            margin: 10px 0;
+            text-align: center;
+            width: 80%;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .overlay button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .error-message {
+            color: #FFC300;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🔹 Password Overlay -->
+    <div class="overlay" id="passwordOverlay">
+        <p>ویڈیوز دیکھنے کے لیے پاسورڈ درج کریں:</p>
+        <input type="password" id="passwordInput" placeholder="پاسورڈ درج کریں">
+        <button onclick="checkPassword()">OK</button>
+        <p class="error-message" id="errorMessage"></p>
+    </div>
+
+    <div class="video-container">
+        <video id="video1" autoplay playsinline loop controls>
+            <source src="https://funny32.nyc3.cdn.digitaloceanspaces.com/No%20video%20description...-fdown.net%20(12).mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="video-container">
+        <video id="video2" autoplay playsinline loop controls>
+            <source src="https://checking.nyc3.cdn.digitaloceanspaces.com/No%20video%20description...-fdown.net%20(9).mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="video-container">
+        <video id="video3" autoplay playsinline loop controls>
+            <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Principal/PART%202%20Paki%20Secondary%20School%20Head%20Teacher%20Scandal%20With%20Students%20Parents%20Office%20Room%20CcTv%20Fottage.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        const videos = document.querySelectorAll("video");
+        let currentPlaying = null;
+        let isPasswordEntered = false;
+        let lastPlayedVideo = null;
+        let lastTime = 0;
+
+        // ✅ 15 سیکنڈ بعد اوورلے شو ہوگا اور ویڈیوز رک جائیں گی
+        window.onload = function () {
+            setTimeout(() => {
+                document.getElementById("passwordOverlay").style.display = "block";
+                pauseAllVideos();
+            }, 10000);
+        };
+
+        // ✅ تمام ویڈیوز کو روکنے والا فنکشن (اوورلے شو ہونے پر)
+        function pauseAllVideos() {
+            videos.forEach(video => {
+                if (!video.paused) {
+                    lastPlayedVideo = video;  // 🔹 جو ویڈیو چل رہی تھی اسے یاد رکھیں
+                    lastTime = video.currentTime; // 🔹 اس کا وقت یاد رکھیں
+                }
+                video.pause();
+            });
+        }
+
+        // ✅ پاسورڈ چیک فنکشن
+        function checkPassword() {
+            let password = document.getElementById("passwordInput").value;
+            let errorMessage = document.getElementById("errorMessage");
+
+            if (password === "3242") {
+                document.getElementById("passwordOverlay").style.display = "none";
+                isPasswordEntered = true;
+
+                // ✅ وہی ویڈیو دوبارہ وہیں سے پلے کریں جہاں سے رکی تھی
+                if (lastPlayedVideo) {
+                    lastPlayedVideo.currentTime = lastTime;
+                    lastPlayedVideo.play();
+                }
+            } else {
+                errorMessage.innerText = "برائے کرام ویڈیوز دیکھنے کے لیے ایڈمن سے پاسورڈ لیں جس کی قیمت 100 روپے ہے";
+            }
+        }
+
+        // ✅ Auto Play Scroll Function
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.8
+        };
+
+        const handleIntersection = (entries) => {
+            entries.forEach(entry => {
+                const video = entry.target;
+
+                if (entry.isIntersecting && isPasswordEntered) {
+                    videos.forEach(v => v.parentElement.style.opacity = "0"); // سب کو چھپائیں
+                    video.parentElement.style.opacity = "1"; // صرف ایک ویڈیو کو ظاہر کریں
+
+                    if (currentPlaying && currentPlaying !== video) {
+                        currentPlaying.pause();
+                        currentPlaying.currentTime = 0;
+                    }
+
+                    video.play();
+                    currentPlaying = video;
+                } else {
+                    video.pause();
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(handleIntersection, options);
+        videos.forEach(video => observer.observe(video));
+
+        // ✅ جب صارف tab change کرے تو ویڈیو رک جائے
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && currentPlaying) {
+                currentPlaying.pause();
+            } else if (currentPlaying && isPasswordEntered) {
+                currentPlaying.play();
+            }
+        });
+
+    </script>
+
+</body>
+</html>
