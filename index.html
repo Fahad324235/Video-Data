@@ -79,10 +79,46 @@
             color: #FFC300;
             margin-top: 10px;
         }
+         .network-overlay {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        color: red;
+        padding: 8px 20px;
+        border-radius: 5px;
+        z-index: 999;
+        text-align: center;
+        border: 1px solid #FFA500;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        font-size: 14px;
+        width: 280px;
+        }
+        
+        .network-overlay p {
+        margin: 5px 0;
+        }
+        .video-container {
+        width: 100%;
+        max-width: 600px;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        opacity: 1;
+        transition: opacity 0.5s ease-in-out;
+        margin-top: 60px; /* نیا ایڈیشن */
+        }
     </style>
 </head>
 <body>
-
+   <!-- نیٹ ورک انفارمیشن اوورلے -->
+<div class="network-overlay" id="networkOverlay">
+    <p>⚠️ آپ کا نیٹ ورک سلو ہے</p>
+    <p>پلیز کچھ دیر انتظار کریں</p>
+</div>
     <!-- 🔹 Password Overlay -->
     <div class="overlay" id="passwordOverlay">
         <p>ویڈیوز دیکھنے کے لیے پاسورڈ درج کریں:</p>
@@ -745,19 +781,28 @@
     </div>
 
     <script>
-        const videos = document.querySelectorAll("video");
-        let currentPlaying = null;
-        let isPasswordEntered = false;
-        let lastPlayedVideo = null;
-        let lastTime = 0;
-
-        // ✅ 15 سیکنڈ بعد اوورلے شو ہوگا اور ویڈیوز رک جائیں گی
-        window.onload = function () {
-            setTimeout(() => {
-                document.getElementById("passwordOverlay").style.display = "block";
-                pauseAllVideos();
-            }, 10000);
-        };
+    const videos = document.querySelectorAll("video");
+    let currentPlaying = null;
+    let isPasswordEntered = false;
+    let lastPlayedVideo = null;
+    let lastTime = 0;
+    
+    // ✅ ایک ہی window.onload استعمال کریں
+    window.onload = function () {
+    // نیٹ ورک اوورلے
+    document.getElementById("networkOverlay").style.display = "block";
+    setTimeout(() => {
+    document.getElementById("networkOverlay").style.display = "none";
+    }, 15000); // 15 سیکنڈ کیلئے درست کیا
+    
+    // پاسورڈ اوورلے
+    setTimeout(() => {
+    if (!isPasswordEntered) {
+    document.getElementById("passwordOverlay").style.display = "block";
+    pauseAllVideos();
+    }
+    }, 20000);
+    };
 
         // ✅ تمام ویڈیوز کو روکنے والا فنکشن (اوورلے شو ہونے پر)
         function pauseAllVideos() {
