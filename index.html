@@ -1,880 +1,129 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
+
 <html lang="ur">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Videos Data</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #222;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100vh;
-            overflow-y: scroll;
-        }
 
-        .video-container {
-            width: 100%;
-            max-width: 600px;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            opacity: 1;  /* ✅ پہلے سے اوپیسٹی 1 کر دی */
-            transition: opacity 0.5s ease-in-out;
-        }
+  <meta charset="UTF-8">
 
-        video {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            background-color: black;
-        }
+  <title>تمام ویڈیوز</title>
 
-        /* 🔹 Overlay Style */
-        .overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 350px;
-            border-radius: 10px;
-            text-align: center;
-            color: white;
-            font-size: 18px;
-            z-index: 1000;
-            display: none;
-        }
+  <style>
 
-        .overlay input {
-            padding: 10px;
-            font-size: 18px;
-            margin: 10px 0;
-            text-align: center;
-            width: 80%;
-            border-radius: 5px;
-            border: none;
-        }
+    body {
 
-        .overlay button {
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            border: none;
-            background-color: #28a745;
-            color: white;
-            border-radius: 5px;
-        }
+      background-color: #eef2f7;
 
-        .error-message {
-            color: #FFC300;
-            margin-top: 10px;
-        }
-         .network-overlay {
-        position: fixed;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.9);
-        color: red;
-        padding: 8px 20px;
-        border-radius: 5px;
-        z-index: 999;
-        text-align: center;
-        border: 1px solid #FFA500;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        font-size: 14px;
-        width: 280px;
-        }
-        
-        .network-overlay p {
-        margin: 5px 0;
-        }
-        .video-container {
-        width: 100%;
-        max-width: 600px;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        opacity: 1;
-        transition: opacity 0.5s ease-in-out;
-        margin-top: 60px; /* نیا ایڈیشن */
-        }
-    </style>
-</head>
-<body>
-   <!-- نیٹ ورک انفارمیشن اوورلے -->
-<div class="network-overlay" id="networkOverlay">
-    <p>⚠️ آپ کا نیٹ ورک سلو ہے</p>
-    <p>پلیز کچھ دیر انتظار کریں</p>
-</div>
-    <!-- 🔹 Password Overlay -->
-    <div class="overlay" id="passwordOverlay">
-        <p>ویڈیوز دیکھنے کے لیے پاسورڈ درج کریں:</p>
-        <input type="password" id="passwordInput" placeholder="پاسورڈ درج کریں">
-        <button onclick="checkPassword()">OK</button>
-        <p class="error-message" id="errorMessage"></p>
-    </div>
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    <div class="video-container">
-    <video id="video1" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%201.mp4" type="video/mp4">
-    </video>
-</div>
+      padding: 20px;
 
-<div class="video-container">
-    <video id="video2" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%202.mp4" type="video/mp4">
-    </video>
-</div>
+      direction: rtl;
 
-<div class="video-container">
-    <video id="video3" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%203.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video4" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%205.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video5" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%206.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video6" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Video%207.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video7" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Sucking%20Husband%20Dick%20Hindi%20Talking%20Saying%20Tumhare%20Yaha%20Par%20Bhi%20Til%20HaiDont%20Miss.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video8" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Saaa.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video9" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Paki%20Hot%20Couple%20Spank%20On%20Ass%20&%20Painful%20Fucking%20With%20Loud%20Moaning.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video10" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video$/Hard%20Fucking%20with%20Boyfriend%20Loud%20Moaning%20Saying%20Baby%20Im%20Cumming%20Must%20Watch.mp4" type="video/mp4">
-    </video>
-    </div>
-
-   <div class="video-container">
-    <video id="video1" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2%20Ghante%2041%20Minute%20Maine%20Lagatar%20Apni%20Biwi%20Ki%20Li%20Hai%20Leaked%20Video,%20Usama%20Bhalli%20Husband%20of%20Silent%20Girl%20Leaked%20Full%20Nude%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video2" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/5_6053319648487672519.mp4" type="video/mp4">
-    </video>
-</div>
-
-    <div class="video-container">
-    <video id="video1" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.36.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video2" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.37.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video3" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.38.32.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video4" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.42.58.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video5" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.44.57.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video6" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.47.45.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video7" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2002.30.10.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video8" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2002.30.12.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video9" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2002.38.55.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video10" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2002.40.28.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video11" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.13.40.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video12" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.17.04.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video13" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.18.06.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video14" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.17.35.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video15" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.29.10.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video16" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.29.38.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video17" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2009.33.13.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video18" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Anum%20Mirza%20with%20Hunain%20Instagram%20Nude%20Live,%20Anum%20Mirza%20Boobs%20Show,%20Paki%20Instagramer%20anum_mirza001%20&%20hunainbajwa011%20Leaked%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video19" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Abbu%20Aram%20Naal%20Karo%20Kitna%20Mota%20Hai%20Viral%20Leaked%20Video,%20Abu%20g%20Abu%20g%20Viral%20Leaked%20FULL%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video20" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-24%2010.05.27.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video21" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Ayat%20Akbar%20Leaked%20Videos,%20Paki%20Tiktoker%20Nude%20Solo%20Leaked%20Videos%20goes%20Viral%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video22" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Ayesha%20Akram%20Leaked%20Videos,%20Pakistani%20TikToker%20Ayesha%20Akram%20Viral%20Nude%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-    <div class="video-container">
-    <video id="video1" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Hareem%20Shah%20Leaked%20Videos,%20Pakistani%20Actress%20Hareem%20Shah%20Nude%20Leaked%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video2" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Husband%20Ke%20Jaane%20Ke%20Baad%20Ghar%20Ki%20Jimmedari%20Taango%20ke%20Sath%20Uthvati%20Hui%20Biwi%20Viral%20Sex%20Video%20Pakistani%20Couple%20Cheating%20Sex%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video3" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Husband%20ne%20Ki%20Full%20Hard%20Chudai%20Biwi%20Ki,%20xxx%20video%20of%20a%20nasty%20shauhar%20drilling%20his%20begum%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video4" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Imsha%20Rehman%20Leaked%20Video%20Part%202,%20Imsha%20Rehman%20NEW%20Proper%20Kissing%20&%20Deep%20Fucking%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video5" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Isha%20Rana%20Leaked%20Video,%20Pakistani%20TikToker%20Isha%20Rana%20Nude%20Video%20Leaked%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video6" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Jannat%20Mirza%20Leaked%20Videos,%20Pakistani%20TikTok%20Star%20Jannat%20Mirza%20Fucking%20Nude%20Leaked%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video7" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Kanwal%20Aftab%20Leaked%20Videos,%20Pakistani%20TikToker%20Kanwal%20Aftab%20Leaked%20Nude%20Fucking%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video8" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Karachi%20Girl%20Nazia%20Standing%20Doggy%20Hard%20Fuck%20and%20Moaning,%20Look%20alike%20Aiman%20Zaman%20Paki%20TikToker%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video9" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Khalil-ur-Rehman%20Qamar%20Leaked%20Video%20(Nude%20With%20Aamna%20Arooj)%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video10" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Mathira%20Leaked%20Videos,%20Pakistani%20TV%20Star%20Mathira%20Nude%20Leaked%20Videos%20BigBoobs%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video11" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Maulana%20Fucking%20his%20Maid%20MMS%20Viral%20Sex%20Video%20Leaked.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video12" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Maya%20G%20Leaked%20Video%20(Maya_Khan391)%20-%20Maya%20G%20Fucking%20Nude%20Videos%20Collection%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video13" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Muskan%20Chandio%20Leaked%20Videos,%20Sindhi%20TikToker%20Muskan%20Chandio%20Nude%20Fucking%20Leaked%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video14" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/My-Video-sbs.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video15" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Nimra%20Mehra%20Leaked%20Video%20Part%202,%20Paki%20Singer%20Nimra%20Mehra%20Nude%20Dancing%20Showing%20Boobs,%20Ass%20Leaked%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video16" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Pagal%20Tissue%20Le%20Lo%20Yaar%20Viral%20Leaked%20Video,%20Pakistani%20Viral%20Girl%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video17" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Paki%20Actress%20Fucking%20Leaked%20Video,%20Cute%20Paki%20Girl%20Fucking%20In%20Hotel%20Room%20Full%20Video.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video18" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Paki%20Hot%20Girl%2040+%20Videos%20Collection%20of%20Leaked,%20Boobs%20Show,%20Pussy%20Rubbing,%20Masturbating%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video19" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Pakistani%20Bhabhi%20Painful%20Sex%20with%20Driver,%20Beautiful%20Hot%20Bhabhi%20Full%20Sex%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video20" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Paki%20Singer%20Rabi%20Pirzada%20Leaked%20Videos,%20Rabi%20Peerzada%20Nude%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video21" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Pakistani%20Girl%20Proposed%20&%20Then%20Started%20Sucking%20Dick%20Viral%20Leaked%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video22" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Pakistani%20Hot%20Lahori%20Girl%20Fucked%20Hard%20By%20His%20Boyfriend%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video23" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/pakistani%20riding%20video%20%E2%80%93%20Mydesi.net.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video24" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Pakistani%20TikTok%20Girl%20Newly%20Married%20Got%20Leaked%20By%20Her%20Husband%20Full%20Nude%20Fucking%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video25" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Rida%20Isfahani%20Leaked%20Video,%20Paki%20Actor%20Nude%20Leaked%20Solo%20Video%20Showing%20Boobs%20Pussy%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video26" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Seher%20Mirza%20Leaked%20Video,%20Sister%20of%20Jannat%20Mirza%20Sehar%20Mirza%20Nude%20Leaked%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video27" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20240723-WA0240.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video28" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Sexy%20Gf%20Jerking%20and%20Hard%20Fucking%20%E2%80%93%20Mydesi.net.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video29" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/TikToker%20Somal%20Rajpar%20Leaked%20Videos,%20Somal%20Rajper%20Nude%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video30" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20231019-WA0138.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video31" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20231021-WA0450.mp4" type="video/mp4">
-    </video>
-</div>
-
-    <div class="video-container">
-    <video id="video1" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20241113-WA0050.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video2" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20241114-WA0227.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video3" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20241116-WA0233.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video4" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20241218-WA0027.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video5" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20241227-WA0034.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video6" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0017.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video7" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0018.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video8" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0019.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video9" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0055.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video10" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0056.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video11" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0059.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video12" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0062.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video13" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0063.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video14" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0069.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video15" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0071.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video16" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250106-WA0072.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video17" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250107-WA0034.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video18" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250107-WA0064.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video19" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250107-WA0072.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video20" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250108-WA0003.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video21" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250108-WA0004.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video22" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250116-WA0096.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video23" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video%20by%20Rizwan%20faisalabad.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video24" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Video%20by%20Afreen%20Khan.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video25" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250120-WA0013.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video26" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VID-20250117-WA0029.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video27" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/VK%20Video%20watch%20videos%20online%20for%20free%20VK.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video28" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Ye%20Kya%20Karwa%20Rahe%20Ho%20Aap%20Bolo%20Viral%20Video,%20Instagram%20Famous%20Meme%20Viral%20Video%20MMS%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video29" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Zoi%20Hashmi%20Leaked%20Nude%20Video,%20Paki%20TikToker%20Zoi%20Hashmi%20Leaked%20Videos.%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video23" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Beautifull%20Big%20Boobs%20Pakistani%20Girl%20Blowjob%20&%20Hot%20Sex%20Clips%20with%20BF%20Merged.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video24" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Bhai%20Aram%20Naal%20Viral%20Funny%20Fucking%20Leaked%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video25" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/f901ca6d-62ed-42c6-8d2c-e6d2cba4bb20.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video26" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Fatima%20Tahir%20Leaked%20Videos%20Collection,%20Pakistani%20Famous%20Fatima%20Tahir%20Nude%20All%20Videos%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video27" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Flashlight%20Guy%20Viral%20Leaked%20Video,%20Pakistani%20Flashlight%20Couple%20Full%20Leaked%20Video%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video28" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Hain%20Haji%20Hun%20Aiwen%20Kresen%20Viral%20Video,%20Hain%20Haji%20Aiwen%20Kresen%20Full%20Fucking%20Video%20With%20Voice%20-%20ThotDesi.mp4" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video3" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.09.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video4" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.13.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video5" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.21.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video6" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.26.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video7" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.28(0).mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video8" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.28.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video9" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.32.mov" type="video/mp4">
-    </video>
-</div>
-
-<div class="video-container">
-    <video id="video10" autoplay playsinline loop controls>
-        <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/2024-08-22%2000.22.34.mov" type="video/mp4">
-    </video>
-</div>
-    <div class="video-container">
-        <video id="video3" autoplay playsinline loop controls>
-            <source src="https://leakdata.nyc3.cdn.digitaloceanspaces.com/Principal/PART%202%20Paki%20Secondary%20School%20Head%20Teacher%20Scandal%20With%20Students%20Parents%20Office%20Room%20CcTv%20Fottage.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <script>
-    const videos = document.querySelectorAll("video");
-    let currentPlaying = null;
-    let isPasswordEntered = false;
-    let lastPlayedVideo = null;
-    let lastTime = 0;
-    
-    // ✅ ایک ہی window.onload استعمال کریں
-    window.onload = function () {
-    // نیٹ ورک اوورلے
-    document.getElementById("networkOverlay").style.display = "block";
-    setTimeout(() => {
-    document.getElementById("networkOverlay").style.display = "none";
-    }, 30000); // 15 سیکنڈ کیلئے درست کیا
-    
-    // پاسورڈ اوورلے
-    setTimeout(() => {
-    if (!isPasswordEntered) {
-    document.getElementById("passwordOverlay").style.display = "block";
-    pauseAllVideos();
     }
-    }, 60000);
-    };
 
-        // ✅ تمام ویڈیوز کو روکنے والا فنکشن (اوورلے شو ہونے پر)
-        function pauseAllVideos() {
-            videos.forEach(video => {
-                if (!video.paused) {
-                    lastPlayedVideo = video;  // 🔹 جو ویڈیو چل رہی تھی اسے یاد رکھیں
-                    lastTime = video.currentTime; // 🔹 اس کا وقت یاد رکھیں
-                }
-                video.pause();
-            });
-        }
+    h1 {
 
-        // ✅ پاسورڈ چیک فنکشن
-        function checkPassword() {
-            let password = document.getElementById("passwordInput").value;
-            let errorMessage = document.getElementById("errorMessage");
+      text-align: center;
 
-            if (password === "3242") {
-                document.getElementById("passwordOverlay").style.display = "none";
-                isPasswordEntered = true;
+      color: #1a237e;
 
-                // ✅ وہی ویڈیو دوبارہ وہیں سے پلے کریں جہاں سے رکی تھی
-                if (lastPlayedVideo) {
-                    lastPlayedVideo.currentTime = lastTime;
-                    lastPlayedVideo.play();
-                }
-            } else {
-                errorMessage.innerText = "برائے کرام ویڈیوز دیکھنے کے لیے ایڈمن سے پاسورڈ لیں جس کی قیمت 150 روپے ہے";
-            }
-        }
+      margin-bottom: 40px;
 
-        // ✅ Auto Play Scroll Function
-        const options = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.8
-        };
+      font-size: 36px;
 
-        const handleIntersection = (entries) => {
-            entries.forEach(entry => {
-                const video = entry.target;
+    }
 
-                if (entry.isIntersecting && isPasswordEntered) {
-                    videos.forEach(v => v.parentElement.style.opacity = "0"); // سب کو چھپائیں
-                    video.parentElement.style.opacity = "1"; // صرف ایک ویڈیو کو ظاہر کریں
+    .video-container {
 
-                    if (currentPlaying && currentPlaying !== video) {
-                        currentPlaying.pause();
-                        currentPlaying.currentTime = 0;
-                    }
+      margin-bottom: 30px;
 
-                    video.play();
-                    currentPlaying = video;
-                } else {
-                    video.pause();
-                }
-            });
-        };
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 
-        const observer = new IntersectionObserver(handleIntersection, options);
-        videos.forEach(video => observer.observe(video));
+      padding: 12px;
 
-        // ✅ جب صارف tab change کرے تو ویڈیو رک جائے
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden && currentPlaying) {
-                currentPlaying.pause();
-            } else if (currentPlaying && isPasswordEntered) {
-                currentPlaying.play();
-            }
-        });
+      background: linear-gradient(to bottom right, #ffffff, #f1f1f1);
 
-    </script>
+      border-radius: 12px;
+
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    }
+
+    .video-container:hover {
+
+      transform: translateY(-5px);
+
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+
+    }
+
+    iframe {
+
+      width: 100%;
+
+      height: 500px;
+
+      border-radius: 10px;
+
+      border: none;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+
+
+  <h5>📺 ویڈیو دیکھتے ہوئے ایڈ ائیں گے ان کو کٹ کر دینا</h5>
+
+
+
+  <!-- ویڈیوز کے الگ الگ divs -->
+
+  <div class="video-container">
+
+    <iframe src="https://streamtape.com/e/7GzqYLpRbmTAAkk/VID-20230922-WA0196.mp4" allowfullscreen allow="autoplay"></iframe>
+
+  </div>
+
+
+
+  <div class="video-container">
+
+    <iframe src="https://streamtape.com/e/bPvm7jV0AWSP9bL/VID-20231209-WA0022.mp4" allowfullscreen allow="autoplay"></iframe>
+
+  </div>
+
+
+
+  <div class="video-container">
+
+    <iframe src="https://streamtape.com/e/MjkkQ8LZ3OfmR2v/VID-20231207-WA0034.mp4" allowfullscreen allow="autoplay"></iframe>
+
+  </div>
+
+
+
+  <div class="video-container">
+
+    <iframe src="https://streamtape.com/e/Wowl3QxbvPIbOdv/VID-20240309-WA0207.mp4" allowfullscreen allow="autoplay"></iframe>
+
+  </div>
+
+
+
+  <div class="video-container">
+
+    <iframe src="https://streamtape.com/e/qroXr201QvIRGB/VID-20231203-WA0077.mp4" allowfullscreen allow="autoplay"></iframe>
+
+  </div>
+
+
 
 </body>
+
 </html>
