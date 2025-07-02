@@ -1,129 +1,109 @@
- <!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="ur">
-
 <head>
-
   <meta charset="UTF-8">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تمام ویڈیوز</title>
-
   <style>
-
     body {
-
       background-color: #eef2f7;
-
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
       padding: 20px;
-
       direction: rtl;
-
+      margin: 0;
     }
 
-    h1 {
-
+    h1, h5 {
       text-align: center;
-
       color: #1a237e;
-
-      margin-bottom: 40px;
-
-      font-size: 36px;
-
+      margin-bottom: 30px;
+      font-size: 24px;
     }
 
     .video-container {
-
-      margin-bottom: 30px;
-
+      margin-bottom: 25px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-
       padding: 12px;
-
       background: linear-gradient(to bottom right, #ffffff, #f1f1f1);
-
       border-radius: 12px;
-
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-
     }
 
     .video-container:hover {
-
-      transform: translateY(-5px);
-
+      transform: translateY(-0px);
       box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-
     }
 
     iframe {
-
       width: 100%;
-
-      height: 500px;
-
+      height: 220px;
       border-radius: 10px;
-
       border: none;
-
     }
 
+    .download-btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 10px 20px;
+      background-color: #1a237e;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      text-align: center;
+    }
+
+    .download-btn:hover {
+      background-color: #3949ab;
+    }
+
+    @media (min-width: 768px) {
+      iframe {
+        height: 300px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      iframe {
+        height: 360px;
+      }
+    }
   </style>
-
 </head>
-
 <body>
 
+  <h5>📺 ویڈیو دیکھتے ہوئے ایڈ آئیں گے، ان کو کٹ کر دینا</h5>
 
-
-  <h5>📺 ویڈیو دیکھتے ہوئے ایڈ ائیں گے ان کو کٹ کر دینا</h5>
-
-
-
-  <!-- ویڈیوز کے الگ الگ divs -->
-
+  <!-- ویڈیو 1 -->
   <div class="video-container">
-
     <iframe src="https://streamtape.com/e/7GzqYLpRbmTAAkk/VID-20230922-WA0196.mp4" allowfullscreen allow="autoplay"></iframe>
-
+    <a class="download-btn" href="https://your-download-link-1.com" download target="_blank">Dawnload</a>
   </div>
 
-
-
+  <!-- ویڈیو 2 -->
   <div class="video-container">
-
     <iframe src="https://streamtape.com/e/bPvm7jV0AWSP9bL/VID-20231209-WA0022.mp4" allowfullscreen allow="autoplay"></iframe>
-
+    <a class="download-btn" href="https://your-download-link-2.com" download target="_blank">Dawnload</a>
   </div>
 
-
-
+  <!-- ویڈیو 3 -->
   <div class="video-container">
-
     <iframe src="https://streamtape.com/e/MjkkQ8LZ3OfmR2v/VID-20231207-WA0034.mp4" allowfullscreen allow="autoplay"></iframe>
-
+    <a class="download-btn" href="https://your-download-link-3.com" download target="_blank">Dawnload</a>
   </div>
 
-
-
+  <!-- ویڈیو 4 -->
   <div class="video-container">
-
     <iframe src="https://streamtape.com/e/Wowl3QxbvPIbOdv/VID-20240309-WA0207.mp4" allowfullscreen allow="autoplay"></iframe>
-
+    <a class="download-btn" href="https://your-download-link-4.com" download target="_blank">Dawnload</a>
   </div>
 
-
-
+  <!-- ویڈیو 5 -->
   <div class="video-container">
-
     <iframe src="https://streamtape.com/e/qroXr201QvIRGB/VID-20231203-WA0077.mp4" allowfullscreen allow="autoplay"></iframe>
-
+    <a class="download-btn" href="https://your-download-link-5.com" download target="_blank">Dawnload</a>
   </div>
-
-
 
 </body>
-
 </html>
